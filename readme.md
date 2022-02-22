@@ -16,7 +16,7 @@ composer require piotrpress/wordpress-plugin
  * Plugin URI:        https://example.com/plugin/
  * Description:       Example Plugin description.
  * Version:           1.0.0
- * Requires at least: 5.8
+ * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            John Smith
  * Author URI:        https://example.com/plugin/author/
@@ -36,7 +36,7 @@ class Example extends Plugin {
     public function deactivation() : void {}
 }
 
-Example::setInstance();
+Example::setInstance( __FILE__ );
 
 echo Example::getName();
 ```
@@ -66,7 +66,7 @@ echo Example::getName();
 * `getFile()` - returns `string` with the path to main plugin's file
 * `getDir()` - returns `string` with the path to plugin's directory
 * `getUrl()` - returns `string` with the url to plugin's directory
-* `getBasename()` - returns `string` with the basename of the plugin
+* `getBaseName()` - returns `string` with the basename of the plugin
 
 ### Inherited Singleton's static methods
 

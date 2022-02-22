@@ -12,26 +12,20 @@ if ( ! \class_exists( __NAMESPACE__ . '\Plugin' ) ) {
 
         private array $data = [];
 
-        protected function __construct() {
+        protected function __construct( string $file ) {
             if ( ! \function_exists( 'get_plugins' ) )
                 require_once( \ABSPATH . 'wp-admin/includes/plugin.php' );
 
-            $traces = \debug_backtrace( \DEBUG_BACKTRACE_IGNORE_ARGS, 1 );
-            $file = \reset( $traces )[ 'file' ];
-            $dir = \dirname( $file );
-
-            $offset = \strlen( \WP_PLUGIN_DIR . \DIRECTORY_SEPARATOR );
-            $length = \strpos( $dir, \DIRECTORY_SEPARATOR, $offset ) + 1;
-
-            $this->data[ 'Dir' ] = \substr( $dir, 0, $length );
-            $this->data[ 'Slug' ] = \substr( $this->data[ 'Dir' ], $offset, - 1 );
+            $this->data[ 'File' ] = $file;
+            $this->data[ 'Dir' ] = \plugin_dir_path( $this->data[ 'File' ] );
+            $this->data[ 'Url' ] = \plugin_dir_url( $this->data[ 'File' ] );
+            $this->data[ 'BaseName' ] = \plugin_basename( $this->data[ 'File' ] );
+            $this->data[ 'Slug' ] = false !== \strpos( $this->data[ 'BaseName' ], '/' )
+                ? \dirname( $this->data[ 'BaseName' ] )
+                : $this->data[ 'BaseName' ];
 
             $plugins = \get_plugins( \DIRECTORY_SEPARATOR . $this->data[ 'Slug' ] );
             $this->data += \reset( $plugins );
-
-            $this->data[ 'Basename' ] = $this->data[ 'Slug' ] . '/' . \key( $plugins );
-            $this->data[ 'File' ] = $this->data[ 'Dir' ] . \key( $plugins );
-            $this->data[ 'Url' ] = \WP_PLUGIN_URL . '/' . $this->data[ 'Slug' ] . '/' ;
 
             $domainpath = $this->data[ 'Slug' ] . $this->data[ 'DomainPath' ];
             if ( $this->data[ 'TextDomain' ] and ! \is_textdomain_loaded( $this->data[ 'TextDomain' ] ) )
