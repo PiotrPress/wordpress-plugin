@@ -3,11 +3,11 @@
   "type": "library",
   "license": "GPL-3.0",
   "description": "This library is WordPress plugin singleton base class with methods to get data from plugin's header fields.",
-  "homepage": "https://PiotrPress",
+  "homepage": "https://github.com/PiotrPress/wordpress-plugin",
   "authors": [
     {
       "name": "Piotr Niewiadomski",
-      "homepage": "https://github.com/PiotrPress"
+      "homepage": "https://piotr.press"
     }
   ],
   "keywords": [
@@ -15,7 +15,7 @@
   ],
   "require": {
     "php": ">=7.4",
-    "piotrpress/singleton": "^6.0.0"
+    "piotrpress/singleton": "^7.0.0"
   },
   "autoload": {
     "psr-4": {

@@ -16,7 +16,7 @@ composer require piotrpress/wordpress-plugin
  * Plugin URI:        https://example.com/plugin/
  * Description:       Example Plugin description.
  * Version:           1.0.0
- * Requires at least: 5.9
+ * Requires at least: 6.2.2
  * Requires PHP:      7.4
  * Author:            John Smith
  * Author URI:        https://example.com/plugin/author/
@@ -36,7 +36,7 @@ class Example extends Plugin {
     public function deactivation() : void {}
 }
 
-Example::setInstance( __FILE__ );
+Example::getInstance( __FILE__ );
 
 echo Example::getName();
 ```
@@ -59,21 +59,21 @@ echo Example::getName();
 * `getRequiresWP()` - returns `string` with the lowest WordPress version that the plugin will work on or empty `string` if `Requires at least` header field is not set
 * `getRequiresPHP()` - returns `string` with the minimum required PHP version or empty `string` if `Requires PHP` header field is not set
 * `getUpdateURI()` - returns `string` with third-party plugin's update server or empty `string` if `Update URI` header field is not set
+* `RequiresPlugins()` - returns `string` with the comma-separated list of WordPress.org-formatted slugs for its dependencies or empty `string` if `Requires Plugins` header field is not set
 
 ### Additional static methods handling plugin's paths
 
-* `getSlug()` - returns `string` with the directory name of the plugin
+* `getSlug()` - returns `string` with the sanitized name of the plugin
+* `getPrefix()` - returns `string` with the prefix for plugin's hooks
 * `getFile()` - returns `string` with the path to main plugin's file
 * `getDir()` - returns `string` with the path to plugin's directory
 * `getUrl()` - returns `string` with the url to plugin's directory
 * `getBaseName()` - returns `string` with the basename of the plugin
+* `getDirName()` - returns `string` with the directory name of the plugin
 
 ### Inherited Singleton's static methods
 
-* `setInstance()` - executes `__construct()` and can be called only once, otherwise `Exception` will be thrown
-* `getInstance()` - returns `null` before `setInstance()` successfully call
-* `issetInstance()` - returns `true` if instance exists, `false` otherwise
-* `unsetInstance()` - unsets instance
+* `getInstance()` - returns the instance of the Plugin class
 
 ### Abstract methods handling plugin's de/activation 
 
